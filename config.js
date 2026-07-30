@@ -1,2 +1,2 @@
-sb_publishable_4tAtQ09XLIHWC2sVj78z7g_oqBIkIbG
-sb_secret_Hlwx31K8Xtei-rk4fZsrQA_s5kEKzyZ
+const SUPABASE_URL = "https://nama-project.supabase.co";
+const SUPABASE_KEY = "DIHAPUS";
