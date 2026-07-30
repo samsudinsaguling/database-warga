@@ -1,2 +1,2 @@
-const SUPABASE_URL = "https://xxxxxxxx.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOi...";
+sb_publishable_4tAtQ09XLIHWC2sVj78z7g_oqBIkIbG
+sb_secret_Hlwx31K8Xtei-rk4fZsrQA_s5kEKzyZ
