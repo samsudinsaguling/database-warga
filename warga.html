@@ -15,6 +15,10 @@
 
 <div class="container mt-4">
 
+<button class="btn btn-success mb-3" onclick="tesKoneksi()">
+Tes Koneksi
+</button>
+
 <h3>Data Warga Kampung Ciwaru</h3>
 
 <table id="tabel" class="table table-bordered table-striped">
@@ -89,6 +93,22 @@ $('#tabel').DataTable();
 }
 
 tampilData();
+
+async function tesKoneksi() {
+
+const { data, error } = await supabase
+.from('warga')
+.select('*');
+
+if (error) {
+    alert(error.message);
+    console.log(error);
+} else {
+    alert("Koneksi berhasil");
+    console.log(data);
+}
+
+}
 
 </script>
 
