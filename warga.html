@@ -45,14 +45,33 @@ async function tampilData(){
    html+=`
    <tr>
    <td>${i+1}</td>
-   <td>${d.NOMOR_NIK||""}</td>
+   <td>${d.NO||""}</td>
    <td>${d.NOMOR_KK||""}</td>
+   <td>${d.NOMOR_NIK||""}</td>  
    <td>${d.NAMA_LENGKAP||""}</td>
    <td>${d.JENIS_KELAMIN||""}</td>
    <td>${d.TEMPAT_LAHIR||""}</td>
    <td>${d.TANGGAL_LAHIR||""}</td>
+   <td>${d.USIA||""}</td>
+   <td>${d.STATUS_DALAM_KK||""}</td>
    <td>${d.PENDIDIKAN||""}</td>
    <td>${d.PEKERJAAN||""}</td>
+   <td>${d.STATUS_PERKAWINAN||""}</td>
+   <td>${d.KAMPUNG||""}</td>
+   <td>${d.RT||""}</td>
+   <td>${d.RW||""}</td>
+   <td>${d.DUSUN||""}</td>
+   <td>${d.STATUS_RUMAH||""}</td>
+   <td>${d.KATAGORI_USIA||""}</td>
+   <td>${d.YATIM||""}</td>
+   <td>${d.PIATU||""}</td>
+   <td>${d.PIATU_YATIM||""}</td>
+   <td>${d.DIFABEL||""}</td>
+   <td>${d.LANSIA||""}</td>
+   <td>${d.RUMAH_TIDAK_LAYAK_HUNI||""}</td>
+   <td>${d.BPJS||""}</td>
+   <td>${d.BANSOS||""}</td>
+   <td>${d.STATUS_TANAH||""}</td>
    </tr>`;
  });
  document.getElementById("dataWarga").innerHTML=html;
