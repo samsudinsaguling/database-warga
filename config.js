@@ -1,2 +1,2 @@
-const SUPABASE_URL = "ISI_URL_PROJECT_ANDA";
-const SUPABASE_ANON_KEY = "ISI_ANON_KEY_ANDA";
+const SUPABASE_URL = "https://xxxxxxxx.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOi...";
