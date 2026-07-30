@@ -4,12 +4,15 @@ async function tampilData() {
 
 const { data, error } = await supabase
   .from('DATA WARGA')
-  .select('*')
-  .order('id', { ascending: true });
+  .select('*');
 
 if (error) {
-    console.log(error);
-    alert(error.message);
+    console.error(error);
+    alert(
+        "Kode Error : " + error.code +
+        "\nPesan : " + error.message +
+        "\nDetail : " + (error.details || "-")
+    );
     return;
 }
 
@@ -41,7 +44,10 @@ if ($.fn.DataTable.isDataTable('#tabel')) {
 
 $('#tabel').DataTable({
     pageLength: 25,
-    responsive: true
+    responsive: true,
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.13.8/i18n/id.json"
+    }
 });
 
 }
@@ -56,10 +62,14 @@ const { data, error } = await supabase
   .limit(1);
 
 if (error) {
-    alert(error.message);
-    console.log(error);
+    console.error(error);
+    alert(
+        "Kode Error : " + error.code +
+        "\nPesan : " + error.message +
+        "\nDetail : " + (error.details || "-")
+    );
 } else {
-    alert("Koneksi berhasil. Jumlah data terbaca: " + data.length);
+    alert("Koneksi berhasil!\nJumlah data terbaca: " + data.length);
     console.log(data);
 }
 
