@@ -1,78 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Data Warga Kampung Ciwaru</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-4">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Data Warga Kampung Ciwaru</h2>
+
+    <button class="btn btn-success" onclick="tesKoneksi()">
+        Tes Koneksi
+    </button>
+</div>
+
+<table id="tabel" class="table table-bordered table-striped table-hover">
+
+<thead class="table-success">
+<tr>
+<th>No</th>
+<th>NIK</th>
+<th>No KK</th>
+<th>Nama Lengkap</th>
+<th>Jenis Kelamin</th>
+<th>Tempat Lahir</th>
+<th>Tanggal Lahir</th>
+<th>Pendidikan</th>
+<th>Pekerjaan</th>
+</tr>
+</thead>
+
+<tbody id="dataWarga">
+</tbody>
+
+</table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+<script src="supabase.js"></script>
+
 <script>
 
 async function tampilData() {
 
 const { data, error } = await supabase
-  .from('DATA WARGA')
-  .select('*');
+.from("DATA WARGA")
+.select("*");
 
-if (error) {
-    console.error(error);
-    alert(
-        "Kode Error : " + error.code +
-        "\nPesan : " + error.message +
-        "\nDetail : " + (error.details || "-")
-    );
-    return;
+if(error){
+
+console.error(error);
+
+alert(
+"Kode : " + error.code +
+"\nPesan : " + error.message
+);
+
+return;
+
 }
 
-let html = '';
+let html="";
 
-data.forEach((d, i) => {
+data.forEach((d,i)=>{
 
-html += `
+html+=`
 <tr>
-<td>${i + 1}</td>
-<td>${d.NOMOR_NIK ?? ''}</td>
-<td>${d.NOMOR_KK ?? ''}</td>
-<td>${d.NAMA_LENGKAP ?? ''}</td>
-<td>${d.JENIS_KELAMIN ?? ''}</td>
-<td>${d.TEMPAT_LAHIR ?? ''}</td>
-<td>${d.TANGGAL_LAHIR ?? ''}</td>
-<td>${d.PENDIDIKAN ?? ''}</td>
-<td>${d.PEKERJAAN ?? ''}</td>
+<td>${i+1}</td>
+<td>${d.NOMOR_NIK ?? ""}</td>
+<td>${d.NOMOR_KK ?? ""}</td>
+<td>${d.NAMA_LENGKAP ?? ""}</td>
+<td>${d.JENIS_KELAMIN ?? ""}</td>
+<td>${d.TEMPAT_LAHIR ?? ""}</td>
+<td>${d.TANGGAL_LAHIR ?? ""}</td>
+<td>${d.PENDIDIKAN ?? ""}</td>
+<td>${d.PEKERJAAN ?? ""}</td>
 </tr>
 `;
 
 });
 
-document.getElementById("dataWarga").innerHTML = html;
+document.getElementById("dataWarga").innerHTML=html;
 
-if ($.fn.DataTable.isDataTable('#tabel')) {
-    $('#tabel').DataTable().destroy();
+new DataTable("#tabel",{
+pageLength:25
+});
+
 }
 
-$('#tabel').DataTable({
-    pageLength: 25,
-    responsive: true,
-    language: {
-        url: "https://cdn.datatables.net/plug-ins/1.13.8/i18n/id.json"
-    }
-});
+async function tesKoneksi(){
+
+const {data,error}=await supabase
+.from("DATA WARGA")
+.select("*")
+.limit(1);
+
+if(error){
+
+alert(error.message);
+console.log(error);
+
+}else{
+
+alert("Koneksi berhasil");
+console.log(data);
+
+}
 
 }
 
 tampilData();
 
-async function tesKoneksi() {
-
-const { data, error } = await supabase
-  .from('DATA WARGA')
-  .select('*')
-  .limit(1);
-
-if (error) {
-    console.error(error);
-    alert(
-        "Kode Error : " + error.code +
-        "\nPesan : " + error.message +
-        "\nDetail : " + (error.details || "-")
-    );
-} else {
-    alert("Koneksi berhasil!\nJumlah data terbaca: " + data.length);
-    console.log(data);
-}
-
-}
-
 </script>
+
+</body>
+</html>
