@@ -1,94 +1,48 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Data Warga</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-
-</head>
-
-<body class="bg-light">
-
-<div class="container mt-4">
-
-<button class="btn btn-success mb-3" onclick="tesKoneksi()">
-Tes Koneksi
-</button>
-
-<h3>Data Warga Kampung Ciwaru</h3>
-
-<table id="tabel" class="table table-bordered table-striped">
-
-<thead>
-<tr>
-<th>No</th>
-<th>NIK</th>
-<th>No KK</th>
-<th>Nama</th>
-<th>L/P</th>
-<th>Tempat Lahir</th>
-<th>Tanggal Lahir</th>
-<th>Pendidikan</th>
-<th>Pekerjaan</th>
-</tr>
-</thead>
-
-<tbody id="dataWarga">
-</tbody>
-
-</table>
-
-</div>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="supabase.js"></script>
-
 <script>
 
-async function tampilData(){
+async function tampilData() {
 
 const { data, error } = await supabase
-.from('warga')
-.select('*')
-.order('id');
+  .from('DATA WARGA')
+  .select('*')
+  .order('id', { ascending: true });
 
-if(error){
-console.log(error);
-return;
+if (error) {
+    console.log(error);
+    alert(error.message);
+    return;
 }
 
-let html='';
+let html = '';
 
-data.forEach((d,i)=>{
+data.forEach((d, i) => {
 
-html+=`
+html += `
 <tr>
-<td>${i+1}</td>
-<td>${d.nik}</td>
-<td>${d.no_kk}</td>
-<td>${d.nama}</td>
-<td>${d.jk}</td>
-<td>${d.tempat_lahir}</td>
-<td>${d.tanggal_lahir}</td>
-<td>${d.pendidikan}</td>
-<td>${d.pekerjaan}</td>
+<td>${i + 1}</td>
+<td>${d.NOMOR_NIK ?? ''}</td>
+<td>${d.NOMOR_KK ?? ''}</td>
+<td>${d.NAMA_LENGKAP ?? ''}</td>
+<td>${d.JENIS_KELAMIN ?? ''}</td>
+<td>${d.TEMPAT_LAHIR ?? ''}</td>
+<td>${d.TANGGAL_LAHIR ?? ''}</td>
+<td>${d.PENDIDIKAN ?? ''}</td>
+<td>${d.PEKERJAAN ?? ''}</td>
 </tr>
 `;
 
 });
 
-document.getElementById("dataWarga").innerHTML=html;
+document.getElementById("dataWarga").innerHTML = html;
 
-$('#tabel').DataTable();
+if ($.fn.DataTable.isDataTable('#tabel')) {
+    $('#tabel').DataTable().destroy();
+}
+
+$('#tabel').DataTable({
+    pageLength: 25,
+    responsive: true
+});
 
 }
 
@@ -97,20 +51,18 @@ tampilData();
 async function tesKoneksi() {
 
 const { data, error } = await supabase
-.from('warga')
-.select('*');
+  .from('DATA WARGA')
+  .select('*')
+  .limit(1);
 
 if (error) {
     alert(error.message);
     console.log(error);
 } else {
-    alert("Koneksi berhasil");
+    alert("Koneksi berhasil. Jumlah data terbaca: " + data.length);
     console.log(data);
 }
 
 }
 
 </script>
-
-</body>
-</html>
